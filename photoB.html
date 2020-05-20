@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-size: 12px;
+    }
+
+    div.speech {
+        margin: 10px 0;
+        padding: 8px;
+        table-layout: fixed;
+        word-break: break-all;
+        position: relative;
+        background: -webkit-gradient(linear, 50% 0%, 50% 100%, from(#ffffff), color-stop(0.1, #ececec), color-stop(0.5, #dbdbdb), color-stop(0.9, #dcdcdc), to(#8c8c8c));
+        border: 1px solid #989898;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+    }
+
+    div.speech:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: 15px;
+        top: -20px;
+        border: 10px solid;
+        border-color: transparent transparent #989898 transparent;
+    }
+
+    div.speech:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: 17px;
+        top: -16px;
+        border: 8px solid;
+        border-color: transparent transparent #ffffff transparent;
+    }
+
+    div.speech.right {
+        box-shadow: -2px 2px 5px #CCC;
+        margin-right: 10px;
+        width: 75%;
+        float: right;
+        background: -webkit-gradient(linear, 50% 0%, 50% 100%, from(#e4ffa7), color-stop(0.1, #bced50), color-stop(0.4, #aed943), color-stop(0.8, #a7d143), to(#99BF40));
+    }
+
+    div.speech.right:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 9px;
+        bottom: auto;
+        left: auto;
+        right: -10px;
+        border-width: 9px 0 9px 10px;
+        border-color: transparent #989898;
+    }
+
+    div.speech.right:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 10px;
+        bottom: auto;
+        left: auto;
+        right: -8px;
+        border-width: 8px 0 8px 9px;
+        border-color: transparent #bced50;
+    }
+
+    div.speech.left {
+        box-shadow: 2px 2px 2px #CCCCCC;
+        margin-left: 10px;
+        width: 75%;
+        float: left;
+        background: -webkit-gradient(linear, 50% 0%, 50% 100%, from(#ffffff), color-stop(0.1, #eae8e8), color-stop(0.4, #E3E3E3), color-stop(0.8, #DFDFDF), to(#D9D9D9));
+    }
+
+    div.speech.left:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 9px;
+        bottom: auto;
+        left: -10px;
+        border-width: 9px 10px 9px 0;
+        border-color: transparent #989898;
+    }
+
+    div.speech.left:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 10px;
+        bottom: auto;
+        left: -8px;
+        border-width: 8px 9px 8px 0;
+        border-color: transparent #eae8e8;
+    }
+
+    .leftimg {
+        float: left;
+        margin-top: 10px;
+    }
+
+    .rightimg {
+        float: right;
+        margin-top: 10px;
+    }
+
+    .leftd {
+        clear: both;
+        float: left;
+        background: url(./userB.jpg) 0px 12px no-repeat;
+        padding-left: 40px;
+        background-size: 35px 35px;
+    }
+
+    .rightd {
+        clear: both;
+        float: right;
+        background: url(./userA.jpg) right 12px no-repeat;
+        padding-right: 40px;
+        background-size: 35px 35px;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+    .container {
+        width: 300px;
+        height: 600px;
+        margin: 50px;
+        border: 1px solid;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+    }
+
+    .container .head {
+        padding: 0 20px;
+        box-sizing: border-box;
+        height: 40px;
+        line-height: 40px;
+        background: #000;
+        color: #fff;
+
+    }
+
+    .content {
+        flex: 1;
+        overflow-y: scroll;
+        width: 320px;
+    }
+
+    .foot {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    input {
+        width: 180px;
+        height: 30px;
+        display: block;
+        padding: 0;
+        border-radius: 2px;
+        border: 1px solid;
+        padding-left: 10px;
+        outline: none;
+    }
+
+    .btn {
+        display: block;
+        padding: 0;
+        height: 30px;
+        flex: 1;
+        text-align: center;
+        line-height: 30px;
+        border: 1px solid;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .file {
+        display: none;
+    }
+
+    .commicateImg {
+        margin-top: 10px;
+        width: 100px;
+    }
+
+    .fileDiv {
+        display: block;
+        width: 200px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        background: #eee;
+        box-shadow: 0 0 5px 0 #eee;
+        margin-top: 10px;
+        text-decoration: none;
+        color:#333;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="head">userA</div>
+        <div class="content" id="content"></div>
+        <div class="foot">
+            <input type="text" placeholder="发送消息" id="inp">
+            <input class="file" type="file" id="file">
+            <label name="file" for="file" class="btn">发送文件</label>
+        </div>
+    </div>
+
+    <script src="./qiniu.js"></script>
+    <script src="./upload.js"></script>
+    <script src="./init.js"></script>
+    <script src="http://cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script>
+        function createLeft(html) {
+            let div = document.createElement("div");
+            div.className = "leftd";
+            let sonDiv = document.createElement("div");
+            sonDiv.className = "speech";
+            sonDiv.classList.add("left");
+            sonDiv.innerText = html;
+            div.appendChild(sonDiv);
+            return div;
+        }
+
+        function createRight(html) {
+            let div = document.createElement("div");
+            div.className = "rightd";
+            let sonDiv = document.createElement("div");
+            sonDiv.className = "speech";
+            sonDiv.classList.add("right");
+            sonDiv.innerText = html;
+            div.appendChild(sonDiv);
+            return div;
+        }
+
+        function createLeftImage(imgurl) {
+            let div = document.createElement("div");
+            div.className = "leftd"
+            let img = new Image();
+            img.className = "commicateImg"
+            img.src = imgurl;
+            div.appendChild(img)
+            return div;
+        }
+
+        function createRightImage(imgurl) {
+            let div = document.createElement("div");
+            div.className = "rightd"
+            let img = new Image();
+            img.className = "commicateImg"
+            img.src = imgurl;
+            div.appendChild(img)
+            return div;
+        }
+
+        function createLeftFile(filename,fileurl) {
+            let div = document.createElement("div");
+            div.className = "leftd"
+            let filediv = document.createElement("a")
+            filediv.className = "fileDiv";
+            filediv.href=fileurl;
+            filediv.innerHTML = filename;
+            div.appendChild(filediv)
+            return div;
+        }
+
+        function createRightFile(filename,fileurl) {
+            let div = document.createElement("div");
+            div.className = "rightd"
+            let filediv = document.createElement("a");
+            filediv.href=fileurl;
+            filediv.className = "fileDiv";
+            filediv.innerHTML = filename;
+            div.appendChild(filediv)
+            return div;
+        }
+
+
+        function cutImageBase64(file, id, wid, quality) {
+            var URL = window.URL || window.webkitURL;
+            var blob = URL.createObjectURL(file);
+            var base64;
+            var img = new Image();
+            img.src = blob;
+            img.onload = function () {
+                var that = this;
+                //生成比例
+                var w = that.width,
+                    h = that.height,
+                    scale = w / h;
+                w = wid || w;
+                h = w / scale;
+                //生成canvas
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                $(canvas).attr({
+                    width: w,
+                    height: h
+                });
+                ctx.drawImage(that, 0, 0, w, h);
+                // 生成base64            
+                base64 = canvas.toDataURL('image/jpeg', quality || 0.8);
+                window.baseUrl = base64;
+            };
+        }
+
+        RongIMClient.init("0vnjpoad0iowz"); //这是初始化，需要填参数就是你的APPKEY。这个不难理解。
+        var token = "E72ZdExxtutP7UXaetPD0DlhZpQvIKmlVNqqjqH+R+E=@lho7.cn.rongnav.com;lho7.cn.rongcfg.com"; //注册时的token
+
+        //设置消息监听
+
+        // 设置连接监听状态 （ status 标识当前连接状态）
+        // 连接状态监听器
+        RongIMClient.setConnectionStatusListener({
+            onChanged: function (status) {
+                switch (status) {
+                    //链接成功
+                    case RongIMLib.ConnectionStatus.CONNECTED:
+                        console.log('链接成功');
+                        break;
+                        //正在链接
+                    case RongIMLib.ConnectionStatus.CONNECTING:
+                        console.log('正在链接');
+                        break;
+                        //重新链接
+                    case RongIMLib.ConnectionStatus.DISCONNECTED:
+                        console.log('断开连接');
+                        break;
+                        //其他设备登陆
+                    case RongIMLib.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT:
+                        console.log('其他设备登陆');
+                        break;
+                        //网络不可用
+                    case RongIMLib.ConnectionStatus.NETWORK_UNAVAILABLE:
+                        console.log('网络不可用');
+                        break;
+                }
+            }
+        });
+
+        // 消息监听器
+        RongIMClient.setOnReceiveMessageListener({
+            // 接收到的消息
+            onReceived: function (message) {
+                // 判断消息类型
+                let content = document.getElementById("content");
+                let Msg;
+                switch (message.messageType) {
+                    case RongIMClient.MessageType.TextMessage:
+                        Msg = message.content.content;
+                        content.appendChild(createRight(Msg));
+
+                        console.log(message);
+                        //发送的消息内容将会被打印
+                        break;
+                    case RongIMClient.MessageType.ImageMessage:
+                        console.log(message);
+                        Msg = message.content.content;
+                        content.appendChild(createRightImage(Msg));
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.FileMessage:
+                        console.log(message);
+                        let name=message.content.name;
+                        let url=message.content.fileUrl;
+                        content.appendChild(createRightFile(name,url));
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.DiscussionNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.LocationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.RichContentMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.DiscussionNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.InformationNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.ContactNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.ProfileNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.CommandNotificationMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.CommandMessage:
+                        // do something...
+                        break;
+                    case RongIMClient.MessageType.UnknownMessage:
+                        // do something...
+                        break;
+                    default:
+                        // 自定义消息
+                        // do something...
+                }
+            }
+        });
+
+        //链接融云的服务器。
+        RongIMClient.connect(token, {
+            onSuccess: function (userId) {
+                //发送消息
+                let inp = document.getElementById("inp");
+                let btn = document.querySelector(".btn");
+                let file = document.getElementById("file");
+                let baseUrl;
+                let msg;
+                var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
+                let targetId = "userA";
+                var getDom = function (id) {
+                    return document.getElementById(id);
+                };
+
+                var stringFormat = function (str, vals) {
+                    for (var i = 0, len = vals.length; i < len; i++) {
+                        var val = vals[i],
+                            reg = new RegExp("\\{" + (i) + "\\}", "g");
+                        str = str.replace(reg, val);
+                    }
+                    return str;
+                };
+
+
+                var onConnected = function (im) {
+
+
+                    var createA = function (url) {
+                        var tmpl = '<a href={0} target="_blank">[{1}]</a><br>',
+                            str = '';
+                        url = Object.prototype.toString.call(url) == '[object Array]' ? url : [url];
+                        for (var i = 0, len = url.length; i < len; i++) {
+                            var item = url[i];
+                            str += stringFormat(tmpl, [item.url, item.memo]);
+                        }
+                        return str;
+                    };
+
+                    var messageItem = {
+                        file: function (file) {
+                            var name = file.name || '',
+                                index = name.lastIndexOf('.') + 1,
+                                type = name.substring(index);
+
+                            // 发送文件消息请参考： http://rongcloud.cn/docs/web_api_demo.html#发送消息
+                            // 创建文件消息
+                            return new RongIMLib.FileMessage({
+                                name: file.name,
+                                size: file.size,
+                                type: type,
+                                fileUrl: file.downloadUrl
+                            });
+                        },
+                        image: function (image) {
+                            return new RongIMLib.ImageMessage({
+                                // content: image.thumbnail,
+                                imageUri: image.downloadUrl
+                            });
+                        }
+                    };
+
+                    var urlItem = {
+                        file: function (data) {
+                            var fileType = RongIMLib.FileType.FILE;
+                            im.getFileUrl(fileType, data.filename, data.name, {
+                                onSuccess: function (result) {
+                                    console.log("获取文件 URL1：", result);
+                                    data.downloadUrl = result
+                                        .downloadUrl; //这里就是返回上传成功你根据这里去显示图片的路径了
+                                    msg = messageItem.file(data)
+                                    console.log(msg);
+                                    im.sendMessage(conversationtype, targetId,
+                                        msg, {
+                                            // 发送消息成功
+                                            onSuccess: function (message) {
+                                                let content = document
+                                                    .getElementById(
+                                                        "content");
+
+                                                content.appendChild(
+                                                    createLeftFile(msg
+                                                        .name,msg.fileUrl));
+                                                //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
+                                                console.log(
+                                                    "Send successfully");
+                                            },
+                                        })
+
+                                    console.log(msg);
+                                    // console.log(data)
+                                },
+                                onError: function (error) {
+                                    console.log('getFileToken error:' + error);
+                                }
+                            });
+                        },
+                        image: function (data) {
+                            var fileType = RongIMLib.FileType.IMAGE;
+                            im.getFileUrl(fileType, data.filename, null, {
+                                onSuccess: function (result) {
+                                    console.log("获取文件 URL2：", result);
+                                    data.downloadUrl = result.downloadUrl;
+                                    msg = messageItem.image(data);
+                                    msg.content = window.baseUrl;
+                                    im.sendMessage(conversationtype, targetId,
+                                        msg, {
+                                            // 发送消息成功
+                                            onSuccess: function (message) {
+                                                let content = document
+                                                    .getElementById(
+                                                        "content");
+                                                content.appendChild(
+                                                    createLeftImage(msg
+                                                        .content));
+                                                //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
+                                                console.log(
+                                                    "Send successfully");
+                                            },
+                                        })
+
+                                },
+                                onError: function (error) {
+                                    console.log('getFileToken error:' + error);
+                                }
+                            });
+                        }
+                    };
+                    var getFileUrl = function (data) {
+                        urlItem[data.fileType](data);
+                    };
+
+                    var getFileType = function (filename) {
+                        // 默认支持两种图片格式，可自行扩展
+                        var imageType = {
+                            'jpg': 1,
+                            'png': 2
+                        };
+                        var index = filename.lastIndexOf('.') + 1,
+                            type = filename.substring(index);
+                        return type in imageType ? 'image' : 'file';
+                    };
+
+                    var callback = {
+                        onError: function (errorCode) {
+                            console.log(errorCode);
+                        },
+                        onProgress: function (loaded, total) {
+                            // var percent = Math.floor(loaded / total * 100);
+                            // var progressBar = document.getElementById('progressBar'),
+                            // 	progressContent = document.getElementById('progressContent');
+                            // progressBar.style.width = percent + '%';
+                            // progressContent.innerHTML = percent + "%";
+                        },
+                        onCompleted: function (data) {
+                            console.log("文件上传完成：",
+                                data); //获取base64在这里获取data中有所有的信息，但是获取图片路径在这里不能获取的，只能在上面我说的提示中获取
+
+                            data.fileType = getFileType(data.name);
+                            getFileUrl(data);
+                        }
+                    };
+
+                    var config = {
+                        domain: 'http://upload.qiniu.com',
+                        fileType: RongIMLib.FileType.IMAGE,
+                        getToken: function (callback) {
+
+                            im.getFileToken(this.fileType, {
+                                onSuccess: function (data) {
+                                    callback(data.token);
+                                },
+                                onError: function (error) {
+                                    console.log('getFileToken error:' + error);
+                                }
+                            });
+                        }
+                    };
+
+                    var initType = {
+                        file: function (_file) {
+                            config.fileType = RongIMLib.FileType.FILE;
+                            UploadClient.initFile(config, function (uploadFile) {
+                                uploadFile.upload(_file, callback);
+                            });
+                        },
+                        image: function (_file) {
+                            UploadClient.initImage(config, function (uploadFile) {
+                                uploadFile.upload(_file, callback);
+                            });
+                        }
+                    };
+
+                    file.onchange = function () {
+                        var _file = this.files[0];
+                        cutImageBase64(_file, null, 100, 1);
+                        initType[getFileType(_file.name)](_file);
+                        this.value = "";
+                    };
+
+                };
+                onConnected(RongIMClient.getInstance());
+
+                inp.onkeydown = function (e) {
+                    if (e.keyCode == 13) {
+                        if (inp.value) {
+                            let value = inp.value;
+                            inp.value = "";
+                            // 定义消息类型,文字消息使用 RongIMLib.TextMessage
+                            msg = new RongIMLib.TextMessage({
+                                content: value,
+                                extra: "附加信息"
+                            });
+                            //或者使用RongIMLib.TextMessage.obtain 方法.具体使用请参见文档
+                            //var msg = RongIMLib.TextMessage.obtain("hello");
+                            // var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
+                            // var targetId = "userB"; // 目标 Id
+                            RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
+                                // 发送消息成功
+                                onSuccess: function (message) {
+                                    let content = document.getElementById("content");
+                                    let Msg = message.content.content;
+                                    content.appendChild(createLeft(Msg));
+                                    //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
+                                    console.log("Send successfully");
+                                },
+                                onError: function (errorCode, message) {
+                                    var info = '';
+                                    switch (errorCode) {
+                                        case RongIMLib.ErrorCode.TIMEOUT:
+                                            info = '超时';
+                                            break;
+                                        case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+                                            info = '未知错误';
+                                            break;
+                                        case RongIMLib.ErrorCode.REJECTED_BY_BLACKLIST:
+                                            info = '在黑名单中，无法向对方发送消息';
+                                            break;
+                                        case RongIMLib.ErrorCode.NOT_IN_DISCUSSION:
+                                            info = '不在讨论组中';
+                                            break;
+                                        case RongIMLib.ErrorCode.NOT_IN_GROUP:
+                                            info = '不在群组中';
+                                            break;
+                                        case RongIMLib.ErrorCode.NOT_IN_CHATROOM:
+                                            info = '不在聊天室中';
+                                            break;
+                                        default:
+                                            info = x;
+                                            break;
+                                    }
+                                    console.log('发送失败:' + info);
+                                }
+                            })
+
+                            console.log("Login successfully." + userId);
+                        } else {
+                            console.log("输入消息不可为空");
+                        }
+                    }
+                }
+            },
+            onTokenIncorrect: function () {
+                console.log('token无效');
+            },
+            onError: function (errorCode) {
+                var info = '';
+                switch (errorCode) {
+                    case RongIMLib.ErrorCode.TIMEOUT:
+                        info = '超时';
+                        break;
+                    case RongIMLib.ErrorCode.UNKNOWN_ERROR:
+                        info = '未知错误';
+                        break;
+                    case RongIMLib.ErrorCode.UNACCEPTABLE_PaROTOCOL_VERSION:
+                        info = '不可接受的协议版本';
+                        break;
+                    case RongIMLib.ErrorCode.IDENTIFIER_REJECTED:
+                        info = 'appkey不正确';
+                        break;
+                    case RongIMLib.ErrorCode.SERVER_UNAVAILABLE:
+                        info = '服务器不可用';
+                        break;
+                }
+                console.log(errorCode);
+            }
+        })
+    </script>
+</body>
+
+</html>
